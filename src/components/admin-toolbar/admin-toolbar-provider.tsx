@@ -51,10 +51,10 @@ export function AdminToolbarProvider({ children, config }: AdminToolbarProviderP
     writeStoredState({ isOpen, activePanel });
   }, [isOpen, activePanel]);
 
-  // Keyboard shortcut (Cmd+Shift+D / Ctrl+Shift+D)
+  // Keyboard shortcut (Cmd+. / Ctrl+.)
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
-      if ((e.metaKey || e.ctrlKey) && e.shiftKey && e.key === 'D') {
+      if ((e.metaKey || e.ctrlKey) && e.key === '.') {
         e.preventDefault();
         setIsOpen((prev) => !prev);
       }

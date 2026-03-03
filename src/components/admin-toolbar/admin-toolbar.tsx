@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, type ReactNode } from 'react';
+import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useAdminToolbar } from './admin-toolbar-provider';
 import { cn } from '../../lib/utils';
@@ -32,7 +32,7 @@ function EnvironmentBadge({ environment }: { environment: string }) {
 }
 
 function ToolbarBar() {
-  const { isOpen, toggle, activePanel, openPanel, closePanel, panels, config } =
+  const { toggle, activePanel, openPanel, closePanel, panels, config } =
     useAdminToolbar();
 
   return (
@@ -76,7 +76,7 @@ function ToolbarBar() {
       {/* Right side: toggle hint */}
       <div className="ml-auto flex items-center gap-2">
         <kbd className="rounded bg-zinc-800 px-1 py-0.5 text-[9px] font-mono text-zinc-500">
-          ⌘⇧D
+          ⌘.
         </kbd>
       </div>
     </div>
@@ -119,6 +119,22 @@ function ToolbarPanel() {
   );
 }
 
+/** Small tab visible when the toolbar is collapsed — click to expand */
+function CollapsedTab() {
+  const { toggle, config } = useAdminToolbar();
+
+  return (
+    <button
+      data-slot="admin-toolbar-tab"
+      onClick={toggle}
+      className="flex items-center gap-1.5 rounded-t border border-b-0 border-zinc-800 bg-zinc-950/95 px-2 py-1 text-zinc-400 backdrop-blur-sm transition-colors hover:text-zinc-200"
+    >
+      <EnvironmentBadge environment={config.environment} />
+      <span className="text-[10px] font-medium">{config.appName}</span>
+    </button>
+  );
+}
+
 /** Floating admin toolbar — renders via portal, fixed at bottom of viewport */
 export function AdminToolbar() {
   const { isOpen } = useAdminToolbar();
@@ -126,7 +142,7 @@ export function AdminToolbar() {
 
   useEffect(() => setMounted(true), []);
 
-  if (!mounted || !isOpen) return null;
+  if (!mounted) return null;
 
   return createPortal(
     <div
@@ -137,17 +153,21 @@ export function AdminToolbar() {
         position: 'fixed',
         bottom: 0,
         left: 0,
-        right: 0,
+        right: isOpen ? 0 : 'auto',
         zIndex: 2147483647,
         contain: 'layout style paint',
         fontFamily:
           'ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif',
       }}
     >
-      <div className="border-t border-zinc-800 bg-zinc-950/95 backdrop-blur-sm text-zinc-300">
-        <ToolbarPanel />
-        <ToolbarBar />
-      </div>
+      {isOpen ? (
+        <div className="border-t border-zinc-800 bg-zinc-950/95 backdrop-blur-sm text-zinc-300">
+          <ToolbarPanel />
+          <ToolbarBar />
+        </div>
+      ) : (
+        <CollapsedTab />
+      )}
     </div>,
     document.body
   );
