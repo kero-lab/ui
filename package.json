@@ -16,7 +16,8 @@
     "./globals.css": "./src/globals.css",
     "./lib/utils": "./src/lib/utils.ts",
     "./icons/rem-icon": "./src/icons/rem-icon.tsx",
-    "./hooks/*": "./src/hooks/*.ts"
+    "./hooks/*": "./src/hooks/*.ts",
+    "./admin-toolbar": "./src/components/admin-toolbar/index.ts"
   },
   "peerDependencies": {
     "react": "^19.0.0",

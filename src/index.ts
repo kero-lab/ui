@@ -18,6 +18,10 @@ export { Table, TableHeader, TableBody, TableFooter, TableHead, TableRow, TableC
 export { Tabs, TabsList, TabsTrigger, TabsContent } from './components/tabs';
 export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from './components/tooltip';
 
+// Admin Toolbar
+export { AdminToolbar, AdminToolbarProvider, useAdminToolbar } from './components/admin-toolbar';
+export type { AdminToolbarConfig, ToolbarPanel } from './components/admin-toolbar';
+
 // Icons
 export { RemIcon } from './icons/rem-icon';
 
