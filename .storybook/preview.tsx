@@ -19,7 +19,7 @@ const preview: Preview = {
   },
   decorators: [
     (Story) => (
-      <div className="dark" style={{ padding: '1rem' }}>
+      <div className="dark bg-background text-foreground min-h-screen p-4">
         <Story />
       </div>
     ),

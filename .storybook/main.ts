@@ -14,6 +14,7 @@ const config: StorybookConfig = {
   },
   addons: [
     '@storybook/addon-a11y',
+    '@storybook/addon-vitest',
   ],
   viteFinal(config) {
     return mergeConfig(config, {
