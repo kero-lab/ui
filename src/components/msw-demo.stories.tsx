@@ -3,7 +3,6 @@ import { http, HttpResponse, delay } from 'msw';
 import { useEffect, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from './card';
 import { Badge } from './badge';
-
 /**
  * Demo story showing MSW per-story API mocking patterns.
  * Each story variant provides different mock handlers to simulate
@@ -113,7 +112,7 @@ function ServiceStatusCard() {
 const meta: Meta<typeof ServiceStatusCard> = {
   title: 'Recipes/MSW Mocking',
   component: ServiceStatusCard,
-  tags: ['autodocs'],
+  tags: ['autodocs', 'lifecycle:stable'],
 };
 
 export default meta;

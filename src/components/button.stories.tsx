@@ -1,11 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, userEvent, within } from 'storybook/test';
 import { Button } from './button';
-
 const meta = {
   title: 'Components/Button',
   component: Button,
-  tags: ['autodocs'],
+  tags: ['autodocs', 'lifecycle:stable'],
   argTypes: {
     variant: {
       control: 'select',

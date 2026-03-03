@@ -2,7 +2,6 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { faker } from '@faker-js/faker';
 import { Card, CardContent, CardHeader, CardTitle } from './card';
 import { Badge } from './badge';
-
 /**
  * Demo story showing @faker-js/faker for deterministic test data.
  * Using `faker.seed(42)` ensures identical data across runs —
@@ -64,7 +63,7 @@ function UserList({ users }: { users: User[] }) {
 const meta = {
   title: 'Recipes/Faker Data',
   component: UserList,
-  tags: ['autodocs'],
+  tags: ['autodocs', 'lifecycle:stable'],
 } satisfies Meta<typeof UserList>;
 
 export default meta;

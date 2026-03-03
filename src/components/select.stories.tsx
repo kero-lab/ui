@@ -9,11 +9,10 @@ import {
   SelectValue,
 } from './select';
 import { Label } from './label';
-
 const meta = {
   title: 'Components/Select',
   component: Select,
-  tags: ['autodocs'],
+  tags: ['autodocs', 'lifecycle:stable'],
   parameters: { layout: 'centered' },
 } satisfies Meta<typeof Select>;
 

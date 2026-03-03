@@ -23,6 +23,12 @@ export { Sparkline, SparklineGrid, computeSparklinePoints, pointsToPolyline, poi
 export { ExpandableRow, ExpandableRowTrigger, ExpandableRowContent, useExpandableRow } from './components/expandable-row';
 export { ResponsiveCard } from './components/responsive-card';
 
+// Stress-test components
+export { StepWizard, StepWizardIndicator, StepWizardContent, StepWizardActions, useStepWizard, wizardReducer, createInitialWizardState, stepIndicatorVariants } from './components/step-wizard';
+export type { WizardStep, WizardState, WizardAction, WizardStatus, StepStatus } from './components/step-wizard';
+export { DataPanel, filterItems, groupByCategory, sortByValue } from './components/data-panel';
+export type { DataItem, DataPanelProps } from './components/data-panel';
+
 // Admin Toolbar
 export { AdminToolbar, AdminToolbarProvider, useAdminToolbar } from './components/admin-toolbar';
 export type { AdminToolbarConfig, ToolbarPanel } from './components/admin-toolbar';

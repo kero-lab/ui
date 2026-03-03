@@ -1,11 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, userEvent, within } from 'storybook/test';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from './tabs';
-
 const meta = {
   title: 'Components/Tabs',
   component: Tabs,
-  tags: ['autodocs'],
+  tags: ['autodocs', 'lifecycle:stable'],
 } satisfies Meta<typeof Tabs>;
 
 export default meta;

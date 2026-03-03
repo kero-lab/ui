@@ -17,11 +17,10 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuSubContent,
 } from './dropdown-menu';
-
 const meta = {
   title: 'Components/DropdownMenu',
   component: DropdownMenu,
-  tags: ['autodocs'],
+  tags: ['autodocs', 'lifecycle:stable'],
   parameters: { layout: 'centered' },
 } satisfies Meta<typeof DropdownMenu>;
 

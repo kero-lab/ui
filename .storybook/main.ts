@@ -17,6 +17,16 @@ const config: StorybookConfig = {
     '@storybook/addon-a11y',
     '@storybook/addon-vitest',
   ],
+  tags: {
+    'lifecycle:stable': {},
+    'lifecycle:prototype': {},
+    'lifecycle:stress-test': {
+      defaultFilterSelection: 'exclude',
+    },
+    'lifecycle:deprecated': {
+      defaultFilterSelection: 'exclude',
+    },
+  },
   viteFinal(config) {
     return mergeConfig(config, {
       plugins: [tailwindcss()],

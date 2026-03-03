@@ -1,11 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect } from 'storybook/test';
 import { Separator } from './separator';
-
 const meta = {
   title: 'Components/Separator',
   component: Separator,
-  tags: ['autodocs'],
+  tags: ['autodocs', 'lifecycle:stable'],
   argTypes: {
     orientation: {
       control: 'select',

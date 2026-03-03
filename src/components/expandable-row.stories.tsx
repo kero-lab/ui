@@ -16,10 +16,9 @@ import {
 } from './table';
 import { Skeleton } from './skeleton';
 import { Badge } from './badge';
-
 const meta = {
   title: 'Components/ExpandableRow',
-  tags: ['autodocs'],
+  tags: ['autodocs', 'lifecycle:prototype'],
   parameters: { layout: 'padded' },
 } satisfies Meta;
 

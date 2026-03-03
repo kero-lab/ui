@@ -13,11 +13,10 @@ import {
 } from './sheet';
 import { Input } from './input';
 import { Label } from './label';
-
 const meta = {
   title: 'Components/Sheet',
   component: Sheet,
-  tags: ['autodocs'],
+  tags: ['autodocs', 'lifecycle:stable'],
   parameters: { layout: 'centered' },
 } satisfies Meta<typeof Sheet>;
 

@@ -2,11 +2,10 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, userEvent, within } from 'storybook/test';
 import { Checkbox } from './checkbox';
 import { Label } from './label';
-
 const meta = {
   title: 'Components/Checkbox',
   component: Checkbox,
-  tags: ['autodocs'],
+  tags: ['autodocs', 'lifecycle:stable'],
   argTypes: {
     checked: {
       control: 'select',

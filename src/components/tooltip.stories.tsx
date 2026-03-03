@@ -2,11 +2,10 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, userEvent, within } from 'storybook/test';
 import { Button } from './button';
 import { Tooltip, TooltipTrigger, TooltipContent } from './tooltip';
-
 const meta = {
   title: 'Components/Tooltip',
   component: Tooltip,
-  tags: ['autodocs'],
+  tags: ['autodocs', 'lifecycle:stable'],
   parameters: {
     layout: 'centered',
   },

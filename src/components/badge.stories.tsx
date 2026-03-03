@@ -1,11 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, within } from 'storybook/test';
 import { Badge } from './badge';
-
 const meta = {
   title: 'Components/Badge',
   component: Badge,
-  tags: ['autodocs'],
+  tags: ['autodocs', 'lifecycle:stable'],
   argTypes: {
     variant: {
       control: 'select',

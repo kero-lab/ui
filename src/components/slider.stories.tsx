@@ -1,11 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, within } from 'storybook/test';
 import { Slider } from './slider';
-
 const meta = {
   title: 'Components/Slider',
   component: Slider,
-  tags: ['autodocs'],
+  tags: ['autodocs', 'lifecycle:stable'],
   argTypes: {
     min: { control: 'number' },
     max: { control: 'number' },

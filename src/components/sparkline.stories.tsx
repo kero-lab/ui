@@ -2,11 +2,10 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, within } from 'storybook/test';
 import { Sparkline, SparklineGrid } from './sparkline';
 import { Card, CardContent, CardHeader, CardTitle } from './card';
-
 const meta = {
   title: 'Components/Sparkline',
   component: Sparkline,
-  tags: ['autodocs'],
+  tags: ['autodocs', 'lifecycle:prototype'],
   parameters: { layout: 'centered' },
   args: {
     data: [4, 7, 3, 8, 5, 9, 2, 6],

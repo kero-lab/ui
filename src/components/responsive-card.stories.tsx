@@ -3,10 +3,9 @@ import { expect, userEvent } from 'storybook/test';
 import { Cpu, MemoryStick, HardDrive, Wifi, Activity, Thermometer } from 'lucide-react';
 import { ResponsiveCard } from './responsive-card';
 import { Sparkline } from './sparkline';
-
 const meta = {
   title: 'Components/ResponsiveCard',
-  tags: ['autodocs'],
+  tags: ['autodocs', 'lifecycle:prototype'],
   parameters: { layout: 'centered' },
 } satisfies Meta;
 

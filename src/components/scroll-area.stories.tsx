@@ -2,11 +2,10 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, within } from 'storybook/test';
 import { ScrollArea, ScrollBar } from './scroll-area';
 import { Separator } from './separator';
-
 const meta = {
   title: 'Components/ScrollArea',
   component: ScrollArea,
-  tags: ['autodocs'],
+  tags: ['autodocs', 'lifecycle:stable'],
   parameters: { layout: 'centered' },
 } satisfies Meta<typeof ScrollArea>;
 

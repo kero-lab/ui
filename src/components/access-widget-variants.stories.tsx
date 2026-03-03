@@ -4,11 +4,10 @@ import {
   type AccessWidgetData,
   type WidgetVariant,
 } from './access-widget-variants';
-
 const meta = {
   title: 'KeroHub/AccessWidgetVariants',
   component: AccessWidgetVariants,
-  tags: ['autodocs'],
+  tags: ['autodocs', 'lifecycle:stable'],
   argTypes: {
     variant: {
       control: 'select',

@@ -1,11 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, within } from 'storybook/test';
 import { Skeleton } from './skeleton';
-
 const meta = {
   title: 'Components/Skeleton',
   component: Skeleton,
-  tags: ['autodocs'],
+  tags: ['autodocs', 'lifecycle:stable'],
 } satisfies Meta<typeof Skeleton>;
 
 export default meta;

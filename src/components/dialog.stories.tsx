@@ -12,11 +12,10 @@ import {
   DialogDescription,
   DialogFooter,
 } from './dialog';
-
 const meta = {
   title: 'Components/Dialog',
   component: Dialog,
-  tags: ['autodocs'],
+  tags: ['autodocs', 'lifecycle:stable'],
   parameters: {
     layout: 'centered',
   },

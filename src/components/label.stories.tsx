@@ -2,11 +2,10 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, within } from 'storybook/test';
 import { Label } from './label';
 import { Input } from './input';
-
 const meta = {
   title: 'Components/Label',
   component: Label,
-  tags: ['autodocs'],
+  tags: ['autodocs', 'lifecycle:stable'],
   argTypes: {
     children: { control: 'text' },
   },

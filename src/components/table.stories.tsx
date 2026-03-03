@@ -11,11 +11,10 @@ import {
   TableCell,
   TableCaption,
 } from './table';
-
 const meta = {
   title: 'Components/Table',
   component: Table,
-  tags: ['autodocs'],
+  tags: ['autodocs', 'lifecycle:stable'],
 } satisfies Meta<typeof Table>;
 
 export default meta;

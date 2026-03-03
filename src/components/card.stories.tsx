@@ -10,11 +10,10 @@ import {
   CardContent,
   CardFooter,
 } from './card';
-
 const meta = {
   title: 'Components/Card',
   component: Card,
-  tags: ['autodocs'],
+  tags: ['autodocs', 'lifecycle:stable'],
 } satisfies Meta<typeof Card>;
 
 export default meta;
