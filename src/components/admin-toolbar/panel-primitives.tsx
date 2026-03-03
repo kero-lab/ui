@@ -14,9 +14,9 @@ export function PanelRow({
   className?: string;
 }) {
   return (
-    <div className={cn('flex items-center justify-between gap-4 py-0.5', className)}>
-      <span className="text-[11px] text-zinc-500 shrink-0">{label}</span>
-      <span className="text-[11px] text-zinc-300 text-right truncate">{children}</span>
+    <div className={cn('flex items-center justify-between gap-4 rounded px-1 py-0.5 transition-colors hover:bg-zinc-900/50', className)}>
+      <span className="text-[10px] text-zinc-500 shrink-0">{label}</span>
+      <span className="text-xs text-zinc-300 text-right truncate">{children}</span>
     </div>
   );
 }
@@ -52,7 +52,7 @@ export function PanelBadge({
   return (
     <span
       className={cn(
-        'inline-flex items-center rounded px-1 py-0.5 text-[10px] font-medium',
+        'inline-flex items-center rounded px-1.5 py-0.5 text-[10px] font-medium transition-opacity',
         {
           default: 'bg-zinc-800 text-zinc-400',
           success: 'bg-emerald-950 text-emerald-400',

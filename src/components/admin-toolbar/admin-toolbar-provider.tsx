@@ -51,17 +51,25 @@ export function AdminToolbarProvider({ children, config }: AdminToolbarProviderP
     writeStoredState({ isOpen, activePanel });
   }, [isOpen, activePanel]);
 
-  // Keyboard shortcut (Cmd+. / Ctrl+.)
+  // Keyboard shortcuts: Cmd+. to toggle, Escape to close
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
       if ((e.metaKey || e.ctrlKey) && e.key === '.') {
         e.preventDefault();
         setIsOpen((prev) => !prev);
       }
+      if (e.key === 'Escape' && isOpen) {
+        e.preventDefault();
+        if (activePanel) {
+          setActivePanel(null);
+        } else {
+          setIsOpen(false);
+        }
+      }
     }
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []);
+  }, [isOpen, activePanel]);
 
   const toggle = useCallback(() => setIsOpen((prev) => !prev), []);
 
