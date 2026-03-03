@@ -18,6 +18,11 @@ export { Table, TableHeader, TableBody, TableFooter, TableHead, TableRow, TableC
 export { Tabs, TabsList, TabsTrigger, TabsContent } from './components/tabs';
 export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from './components/tooltip';
 
+// Prototype components
+export { Sparkline, SparklineGrid, computeSparklinePoints, pointsToPolyline, pointsToGradientPath } from './components/sparkline';
+export { ExpandableRow, ExpandableRowTrigger, ExpandableRowContent, useExpandableRow } from './components/expandable-row';
+export { ResponsiveCard } from './components/responsive-card';
+
 // Admin Toolbar
 export { AdminToolbar, AdminToolbarProvider, useAdminToolbar } from './components/admin-toolbar';
 export type { AdminToolbarConfig, ToolbarPanel } from './components/admin-toolbar';
