@@ -1,7 +1,12 @@
 import type { Preview } from '@storybook/react-vite';
+import { initialize, mswLoader } from 'msw-storybook-addon';
 import './storybook.css';
 
+// Initialize MSW service worker for API mocking in stories
+initialize();
+
 const preview: Preview = {
+  loaders: [mswLoader],
   globalTypes: {
     theme: {
       description: 'Global theme for components',

@@ -116,6 +116,14 @@ export const AllVariants: Story = {
   ),
 };
 
+/** Demonstrates a11y testing — addon-a11y runs axe-core checks in Vitest */
+export const A11yChecked: Story = {
+  args: { children: 'Accessible Button' },
+  parameters: {
+    a11y: { test: 'error' },
+  },
+};
+
 export const ClickInteraction: Story = {
   args: { children: 'Click me' },
   play: async ({ canvasElement }) => {

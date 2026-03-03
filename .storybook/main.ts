@@ -8,6 +8,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const config: StorybookConfig = {
   stories: ['../src/**/*.stories.@(ts|tsx)'],
+  staticDirs: ['../public'],
   framework: {
     name: '@storybook/react-vite',
     options: {},

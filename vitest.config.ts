@@ -28,7 +28,9 @@ export default defineConfig({
       '@radix-ui/react-tabs',
       '@radix-ui/react-tooltip',
       'radix-ui',
+      '@faker-js/faker',
     ],
+    exclude: ['msw', 'msw/browser', 'msw-storybook-addon'],
   },
   test: {
     projects: [
