@@ -2,6 +2,10 @@
   "name": "@remlab/ui",
   "version": "0.0.0",
   "private": true,
+  "scripts": {
+    "storybook": "node node_modules/.bin/storybook dev -p 6006",
+    "build-storybook": "node node_modules/.bin/storybook build"
+  },
   "sideEffects": ["*.css"],
   "exports": {
     ".": "./src/index.ts",
@@ -33,8 +37,13 @@
     "tailwind-merge": "^3.0.2"
   },
   "devDependencies": {
+    "@storybook/addon-a11y": "^10.2.14",
+    "@storybook/react-vite": "^10.2.14",
+    "@tailwindcss/vite": "^4.2.1",
     "@types/react": "^19.0.1",
     "@types/react-dom": "^19.0.2",
-    "typescript": "5.7.2"
+    "storybook": "^10.2.14",
+    "typescript": "5.7.2",
+    "vite": "^7.3.1"
   }
 }
