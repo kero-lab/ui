@@ -40,7 +40,7 @@ function ToolbarBar() {
       {/* App name + environment */}
       <button
         onClick={toggle}
-        className="flex items-center gap-2 text-xs font-medium text-zinc-300 hover:text-white transition-colors"
+        className="flex items-center gap-2 text-xs font-medium text-zinc-300 hover:text-white cursor-pointer transition-colors"
       >
         <EnvironmentBadge environment={config.environment} />
         <span>{config.appName}</span>
@@ -61,7 +61,7 @@ function ToolbarBar() {
               activePanel === panel.id ? closePanel() : openPanel(panel.id)
             }
             className={cn(
-              'flex items-center gap-1 rounded px-2 py-1 text-[11px] transition-colors',
+              'flex items-center gap-1 rounded px-2 py-1 text-[11px] cursor-pointer transition-colors',
               activePanel === panel.id
                 ? 'bg-zinc-700 text-white'
                 : 'text-zinc-400 hover:bg-zinc-800 hover:text-zinc-200'
@@ -102,7 +102,7 @@ function ToolbarPanel() {
         </div>
         <button
           onClick={closePanel}
-          className="rounded p-0.5 text-zinc-500 hover:bg-zinc-800 hover:text-zinc-300 transition-colors"
+          className="rounded p-0.5 text-zinc-500 hover:bg-zinc-800 hover:text-zinc-300 cursor-pointer transition-colors"
         >
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
             <path
@@ -127,7 +127,7 @@ function CollapsedTab() {
     <button
       data-slot="admin-toolbar-tab"
       onClick={toggle}
-      className="flex items-center gap-1.5 rounded-t border border-b-0 border-zinc-800 bg-zinc-950/95 px-2 py-1 text-zinc-400 backdrop-blur-sm transition-colors hover:text-zinc-200"
+      className="flex items-center gap-1.5 rounded-t border border-b-0 border-zinc-800 bg-zinc-950/95 px-2 py-1 text-zinc-400 backdrop-blur-sm cursor-pointer transition-colors hover:text-zinc-200"
     >
       <EnvironmentBadge environment={config.environment} />
       <span className="text-[10px] font-medium">{config.appName}</span>
