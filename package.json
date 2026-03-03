@@ -5,7 +5,8 @@
   "scripts": {
     "storybook": "node node_modules/.bin/storybook dev -p 6006",
     "build-storybook": "node node_modules/.bin/storybook build",
-    "test": "vitest --project storybook"
+    "test": "vitest --project storybook",
+    "typecheck": "tsc --noEmit"
   },
   "sideEffects": ["*.css"],
   "exports": {

@@ -2,6 +2,23 @@ import type { Preview } from '@storybook/react-vite';
 import './storybook.css';
 
 const preview: Preview = {
+  globalTypes: {
+    theme: {
+      description: 'Global theme for components',
+      toolbar: {
+        title: 'Theme',
+        icon: 'circlehollow',
+        items: [
+          { value: 'dark', title: 'Dark', icon: 'circle' },
+          { value: 'light', title: 'Light', icon: 'circlehollow' },
+        ],
+        dynamicTitle: true,
+      },
+    },
+  },
+  initialGlobals: {
+    theme: 'dark',
+  },
   parameters: {
     controls: {
       matchers: {
@@ -18,11 +35,14 @@ const preview: Preview = {
     },
   },
   decorators: [
-    (Story) => (
-      <div className="dark bg-background text-foreground min-h-screen p-4">
-        <Story />
-      </div>
-    ),
+    (Story, context) => {
+      const isDark = context.globals['theme'] !== 'light';
+      return (
+        <div className={`${isDark ? 'dark' : ''} bg-background text-foreground min-h-screen p-4`}>
+          <Story />
+        </div>
+      );
+    },
   ],
 };
 

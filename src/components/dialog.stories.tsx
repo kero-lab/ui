@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, userEvent, within } from 'storybook/test';
 import { Button } from './button';
+import { Input } from './input';
+import { Label } from './label';
 import {
   Dialog,
   DialogTrigger,
@@ -79,19 +81,19 @@ export const FormDialog: Story = {
         </DialogHeader>
         <div className="grid gap-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">
-            <label htmlFor="name" className="text-right text-sm">Name</label>
-            <input
+            <Label htmlFor="name" className="text-right">Name</Label>
+            <Input
               id="name"
               placeholder="service-name"
-              className="col-span-3 rounded-md border bg-transparent px-3 py-2 text-sm"
+              className="col-span-3"
             />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
-            <label htmlFor="port" className="text-right text-sm">Port</label>
-            <input
+            <Label htmlFor="port" className="text-right">Port</Label>
+            <Input
               id="port"
               placeholder="8080"
-              className="col-span-3 rounded-md border bg-transparent px-3 py-2 text-sm"
+              className="col-span-3"
             />
           </div>
         </div>
