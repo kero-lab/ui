@@ -22,7 +22,7 @@ const UI_SRC = join(ROOT, 'packages/ui/src')
 
 /** Directories that count as separate "apps" */
 const APP_DIRS = [
-  'deployments/identity/user-portal',
+  'deployments/identity/kerohub',
   'deployments/monitoring/remhub',
   'apps/rem-agent-ui',
   'apps/rem-bot',
