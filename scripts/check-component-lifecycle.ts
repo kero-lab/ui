@@ -124,16 +124,60 @@ for (const file of storyFiles) {
 
 // --- Summary ---
 
+const entries = Object.values(COMPONENT_LIFECYCLE)
+const stableCount = storyFiles.length - entries.length
+const protoCount = entries.filter(e => e.stage === 'prototype').length
+const stressCount = entries.filter(e => e.stage === 'stress-test').length
+const legacyCount = entries.filter(e => e.stage === 'legacy').length
+const deprecatedCount = entries.filter(e => e.stage === 'deprecated').length
+
 if (!hasPromotions && !hasTagMismatches) {
-  const entries = Object.values(COMPONENT_LIFECYCLE)
-  const stableCount = storyFiles.length - entries.length
-  const protoCount = entries.filter(e => e.stage === 'prototype').length
-  const stressCount = entries.filter(e => e.stage === 'stress-test').length
-  const legacyCount = entries.filter(e => e.stage === 'legacy').length
-  const deprecatedCount = entries.filter(e => e.stage === 'deprecated').length
   console.log(`✓ Component lifecycle check passed`)
   console.log(`  ${stableCount} stable, ${protoCount} prototype, ${stressCount} stress-test, ${legacyCount} legacy, ${deprecatedCount} deprecated`)
   console.log(`  ${storyFiles.length} story files with correct tags`)
 } else {
   process.exit(1)
+}
+
+// --- Usage report for non-stable components ---
+
+const nonStableWithUsage = Object.entries(componentUsage)
+  .filter(([name]) => {
+    const entry = COMPONENT_LIFECYCLE[name]
+    return entry && entry.stage !== 'stable' && entry.stage !== 'deprecated'
+  })
+  .sort(([, a], [, b]) => b.size - a.size)
+
+if (nonStableWithUsage.length > 0) {
+  console.log(`\nUsage of non-stable components:`)
+  for (const [component, apps] of nonStableWithUsage) {
+    const stage = COMPONENT_LIFECYCLE[component]?.stage
+    const appList = [...apps].map(a => a.split('/').pop()).join(', ')
+    console.log(`  ${component} (${stage}) — ${apps.size} app${apps.size !== 1 ? 's' : ''}: ${appList}`)
+  }
+}
+
+// --- Unused stable components (candidates for promotion review or pruning) ---
+
+// Get all stable component names from story files (those NOT in registry = stable)
+const allComponents = storyFiles
+  .map(f => {
+    const content = readFileSync(join(storyDir, f), 'utf8')
+    const metaBlock = content.match(/const\s+meta\s*=\s*\{[\s\S]*?\}\s*satisfies\s+Meta/)
+    if (!metaBlock) return null
+    // Try to infer component name from story title e.g. 'Components/StepWizard' -> 'StepWizard'
+    const titleMatch = metaBlock[0].match(/title:\s*['"](?:Components|Integration)\/([^'"]+)['"]/)
+    return titleMatch ? titleMatch[1].replace(/\s/g, '') : null
+  })
+  .filter((n): n is string => n !== null)
+
+const unusedStable = allComponents.filter(name => {
+  const entry = COMPONENT_LIFECYCLE[name]
+  const isStable = !entry || entry.stage === 'stable'
+  return isStable && !componentUsage[name]
+})
+
+if (unusedStable.length > 0) {
+  console.log(`\nℹ Stable components with no detected app imports (${unusedStable.length}):`)
+  console.log(`  ${unusedStable.join(', ')}`)
 }
