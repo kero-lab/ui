@@ -158,6 +158,12 @@
   }
 }
 
+/* Scrolling wave animation — used by AudioWave component */
+@keyframes wave {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
 /* Respect reduced motion preferences */
 @media (prefers-reduced-motion: reduce) {
   *,

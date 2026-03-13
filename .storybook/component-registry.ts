@@ -119,6 +119,37 @@ export const COMPONENT_LIFECYCLE: Record<string, LifecycleEntry> = {
     note: 'Built in #561 phase 5, challenge C (integration story only)',
   },
 
+  AudioWave: {
+    stage: 'prototype',
+    since: '2026-03-13',
+    promotedBy: 'initial',
+    note: 'Animated voice waveform — composite sinusoids, hover spring. Built for RemHub VoiceCard.',
+  },
+  NoiseWave: {
+    stage: 'prototype',
+    since: '2026-03-13',
+    promotedBy: 'initial',
+    note: 'fBm noise wave — 4-octave fractal Brownian motion, never repeats. Voice card alternative.',
+  },
+  EnvelopeWave: {
+    stage: 'prototype',
+    since: '2026-03-13',
+    promotedBy: 'initial',
+    note: 'Noise wave driven by Rem voice RMS envelope. Supports static + chroma color modes.',
+  },
+  VoiceWave: {
+    stage: 'prototype',
+    since: '2026-03-13',
+    promotedBy: 'initial',
+    note: 'Hybrid Canvas 2D — smooth sinusoids + Gaussian attenuation + additive glow + envelope amplitude.',
+  },
+  WavePlayground: {
+    stage: 'prototype',
+    since: '2026-03-13',
+    promotedBy: 'initial',
+    note: 'Side-by-side comparison of all voice wave variants.',
+  },
+
   // Everything else (Button, Card, Badge, etc.) defaults to 'stable'
 }
 

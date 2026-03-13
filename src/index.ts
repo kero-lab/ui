@@ -18,6 +18,13 @@ export { Table, TableHeader, TableBody, TableFooter, TableHead, TableRow, TableC
 export { Tabs, TabsList, TabsTrigger, TabsContent } from './components/tabs';
 export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from './components/tooltip';
 
+// Wave visualization components
+export { AudioWave } from './components/audio-wave';
+export { NoiseWave } from './components/noise-wave';
+export { EnvelopeWave } from './components/envelope-wave';
+export { VoiceWave } from './components/voice-wave';
+export { sampleEnvelope, REM_ENVELOPE, ENVELOPE_FRAMES, ENVELOPE_DURATION } from './components/rem-envelope';
+
 // Prototype components
 export { Sparkline, SparklineGrid, computeSparklinePoints, pointsToPolyline, pointsToGradientPath } from './components/sparkline';
 export { ExpandableRow, ExpandableRowTrigger, ExpandableRowContent, useExpandableRow } from './components/expandable-row';
