@@ -25,6 +25,9 @@ const preview: Preview = {
     theme: 'dark',
   },
   parameters: {
+    a11y: {
+      test: 'error',
+    },
     controls: {
       matchers: {
         color: /(background|color)$/i,

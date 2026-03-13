@@ -230,28 +230,32 @@ export const KeyboardNavigation: Story = {
       <StepWizardActions />
     </StepWizard>
   ),
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement, step }) => {
     const indicator = canvasElement.querySelector('[data-slot="step-wizard-indicator"]')!;
     const content = canvasElement.querySelector('[data-slot="step-wizard-content"]')!;
 
-    // Start at step 1
-    await expect(content.textContent).toBe('Account content');
+    await step('Verify starting at step 1', async () => {
+      await expect(content.textContent).toBe('Account content');
+    });
 
-    // Focus indicator and navigate with arrow keys
-    (indicator as HTMLElement).focus();
-    await userEvent.keyboard('{ArrowRight}');
-    await expect(content.textContent).toBe('Details content');
+    await step('Navigate forward with ArrowRight', async () => {
+      (indicator as HTMLElement).focus();
+      await userEvent.keyboard('{ArrowRight}');
+      await expect(content.textContent).toBe('Details content');
 
-    await userEvent.keyboard('{ArrowRight}');
-    await expect(content.textContent).toBe('Review content');
+      await userEvent.keyboard('{ArrowRight}');
+      await expect(content.textContent).toBe('Review content');
+    });
 
-    // ArrowRight at end is no-op
-    await userEvent.keyboard('{ArrowRight}');
-    await expect(content.textContent).toBe('Review content');
+    await step('Verify ArrowRight at end is no-op', async () => {
+      await userEvent.keyboard('{ArrowRight}');
+      await expect(content.textContent).toBe('Review content');
+    });
 
-    // Navigate back
-    await userEvent.keyboard('{ArrowLeft}');
-    await expect(content.textContent).toBe('Details content');
+    await step('Navigate back with ArrowLeft', async () => {
+      await userEvent.keyboard('{ArrowLeft}');
+      await expect(content.textContent).toBe('Details content');
+    });
   },
 };
 

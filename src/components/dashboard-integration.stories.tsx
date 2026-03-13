@@ -237,53 +237,57 @@ export const SearchAndExpand: Story = {
       </div>
     </div>
   ),
-  play: async ({ canvasElement }) => {
-    // 1. Wait for DataPanel items to load
-    await waitFor(() => {
-      const items = canvasElement.querySelectorAll('[data-slot="data-panel-item"]');
-      expect(items.length).toBe(4);
+  play: async ({ canvasElement, step }) => {
+    await step('Wait for DataPanel items to load', async () => {
+      await waitFor(() => {
+        const items = canvasElement.querySelectorAll('[data-slot="data-panel-item"]');
+        expect(items.length).toBe(4);
+      });
     });
 
-    // 2. Search for "gateway" in DataPanel
-    const search = canvasElement.querySelector('[data-slot="data-panel-search"] input')!;
-    await userEvent.type(search, 'gateway');
+    await step('Search for "gateway" and verify filter', async () => {
+      const search = canvasElement.querySelector('[data-slot="data-panel-search"] input')!;
+      await userEvent.type(search, 'gateway');
 
-    await waitFor(() => {
-      const items = canvasElement.querySelectorAll('[data-slot="data-panel-item"]');
-      expect(items.length).toBe(1);
+      await waitFor(() => {
+        const items = canvasElement.querySelectorAll('[data-slot="data-panel-item"]');
+        expect(items.length).toBe(1);
+      });
     });
 
-    // 3. Click first ExpandableRow trigger in the table
-    const trigger = canvasElement.querySelector('[data-slot="expandable-row"]')!;
-    await userEvent.click(trigger);
+    await step('Expand first service row', async () => {
+      const trigger = canvasElement.querySelector('[data-slot="expandable-row"]')!;
+      await userEvent.click(trigger);
 
-    // 4. Verify expanded — content is open
-    await waitFor(() => {
-      const content = canvasElement.querySelector('[data-slot="expandable-row-content"]');
-      expect(content).not.toBeNull();
-      expect(content!.getAttribute('data-state')).toBe('open');
+      await waitFor(() => {
+        const content = canvasElement.querySelector('[data-slot="expandable-row-content"]');
+        expect(content).not.toBeNull();
+        expect(content!.getAttribute('data-state')).toBe('open');
+      });
     });
 
-    // 5. Verify ResponsiveCards appear inside expanded row
-    const cards = canvasElement.querySelectorAll('[data-slot="responsive-card"]');
-    await expect(cards.length).toBeGreaterThanOrEqual(3);
+    await step('Verify ResponsiveCards and Sparklines inside expanded row', async () => {
+      const cards = canvasElement.querySelectorAll('[data-slot="responsive-card"]');
+      await expect(cards.length).toBeGreaterThanOrEqual(3);
 
-    // 6. Verify Sparkline exists inside a card
-    const sparklines = canvasElement.querySelectorAll('[data-slot="sparkline"]');
-    await expect(sparklines.length).toBeGreaterThanOrEqual(1);
-
-    // 7. Collapse
-    await userEvent.click(trigger);
-    await waitFor(() => {
-      const content = canvasElement.querySelector('[data-slot="expandable-row-content"]');
-      expect(content!.getAttribute('data-state')).toBe('closed');
+      const sparklines = canvasElement.querySelectorAll('[data-slot="sparkline"]');
+      await expect(sparklines.length).toBeGreaterThanOrEqual(1);
     });
 
-    // 8. Clear search
-    await userEvent.clear(search);
-    await waitFor(() => {
-      const items = canvasElement.querySelectorAll('[data-slot="data-panel-item"]');
-      expect(items.length).toBe(4);
+    await step('Collapse row and clear search', async () => {
+      const trigger = canvasElement.querySelector('[data-slot="expandable-row"]')!;
+      await userEvent.click(trigger);
+      await waitFor(() => {
+        const content = canvasElement.querySelector('[data-slot="expandable-row-content"]');
+        expect(content!.getAttribute('data-state')).toBe('closed');
+      });
+
+      const search = canvasElement.querySelector('[data-slot="data-panel-search"] input')!;
+      await userEvent.clear(search);
+      await waitFor(() => {
+        const items = canvasElement.querySelectorAll('[data-slot="data-panel-item"]');
+        expect(items.length).toBe(4);
+      });
     });
   },
 };
@@ -306,30 +310,33 @@ export const WizardFlow: Story = {
       </StepWizard>
     </div>
   ),
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement, step }) => {
     const content = canvasElement.querySelector('[data-slot="step-wizard-content"]')!;
 
-    // Step 1
-    await expect(content.textContent).toBe('Select services');
+    await step('Verify starting on step 1', async () => {
+      await expect(content.textContent).toBe('Select services');
+    });
 
-    // Advance to step 2
-    const next = canvasElement.querySelector('[data-slot="step-wizard-next"]')!;
-    await userEvent.click(next);
-    await expect(content.textContent).toBe('Configure settings');
+    await step('Advance to step 2 — Configure', async () => {
+      const next = canvasElement.querySelector('[data-slot="step-wizard-next"]')!;
+      await userEvent.click(next);
+      await expect(content.textContent).toBe('Configure settings');
+    });
 
-    // Advance to step 3
-    await userEvent.click(canvasElement.querySelector('[data-slot="step-wizard-next"]')!);
-    await expect(content.textContent).toBe('Ready to publish');
+    await step('Advance to step 3 — Publish', async () => {
+      await userEvent.click(canvasElement.querySelector('[data-slot="step-wizard-next"]')!);
+      await expect(content.textContent).toBe('Ready to publish');
+    });
 
-    // Submit button should now be visible
-    const submit = canvasElement.querySelector('[data-slot="step-wizard-submit"]')!;
-    await expect(submit).toBeInTheDocument();
+    await step('Verify submit button and step indicator states', async () => {
+      const submit = canvasElement.querySelector('[data-slot="step-wizard-submit"]')!;
+      await expect(submit).toBeInTheDocument();
 
-    // All step indicators before current should be completed
-    const steps = canvasElement.querySelectorAll('[data-slot="step-wizard-step"]');
-    await expect(steps[0].getAttribute('data-status')).toBe('completed');
-    await expect(steps[1].getAttribute('data-status')).toBe('completed');
-    await expect(steps[2].getAttribute('data-status')).toBe('current');
+      const steps = canvasElement.querySelectorAll('[data-slot="step-wizard-step"]');
+      await expect(steps[0].getAttribute('data-status')).toBe('completed');
+      await expect(steps[1].getAttribute('data-status')).toBe('completed');
+      await expect(steps[2].getAttribute('data-status')).toBe('current');
+    });
   },
 };
 

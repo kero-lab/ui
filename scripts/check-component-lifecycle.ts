@@ -13,7 +13,7 @@
 
 import { readFileSync, readdirSync, statSync } from 'node:fs'
 import { join, relative } from 'node:path'
-import { COMPONENT_LIFECYCLE, getLifecycleStage, type LifecycleStage } from '../.storybook/component-registry'
+import { COMPONENT_LIFECYCLE, PROMOTION_CRITERIA, getLifecycleStage, type LifecycleStage } from '../.storybook/component-registry'
 
 const ROOT = join(import.meta.dirname, '../../..')
 const UI_SRC = join(ROOT, 'packages/ui/src')
@@ -75,10 +75,13 @@ for (const appDir of APP_DIRS) {
 let hasPromotions = false
 for (const [component, apps] of Object.entries(componentUsage)) {
   if (apps.size < 2) continue
-  const stage = COMPONENT_LIFECYCLE[component]
+  const entry = COMPONENT_LIFECYCLE[component]
+  const stage = entry?.stage
   if (stage && stage !== 'stable') {
-    console.log(`⚠ AUTO-PROMOTE: "${component}" is '${stage}' but imported by ${apps.size} apps:`)
+    console.log(`⚠ AUTO-PROMOTE: "${component}" is '${stage}' (since ${entry.since}) but imported by ${apps.size} apps:`)
     for (const app of apps) console.log(`    → ${app}`)
+    console.log(`  Promotion criteria for 'stable':`)
+    for (const criterion of PROMOTION_CRITERIA.stable) console.log(`    [ ] ${criterion}`)
     console.log(`  Update COMPONENT_LIFECYCLE in .storybook/component-registry.ts`)
     hasPromotions = true
   }
@@ -122,11 +125,14 @@ for (const file of storyFiles) {
 // --- Summary ---
 
 if (!hasPromotions && !hasTagMismatches) {
-  const stableCount = storyFiles.length - Object.keys(COMPONENT_LIFECYCLE).length
-  const protoCount = Object.values(COMPONENT_LIFECYCLE).filter(s => s === 'prototype').length
-  const stressCount = Object.values(COMPONENT_LIFECYCLE).filter(s => s === 'stress-test').length
+  const entries = Object.values(COMPONENT_LIFECYCLE)
+  const stableCount = storyFiles.length - entries.length
+  const protoCount = entries.filter(e => e.stage === 'prototype').length
+  const stressCount = entries.filter(e => e.stage === 'stress-test').length
+  const legacyCount = entries.filter(e => e.stage === 'legacy').length
+  const deprecatedCount = entries.filter(e => e.stage === 'deprecated').length
   console.log(`✓ Component lifecycle check passed`)
-  console.log(`  ${stableCount} stable, ${protoCount} prototype, ${stressCount} stress-test`)
+  console.log(`  ${stableCount} stable, ${protoCount} prototype, ${stressCount} stress-test, ${legacyCount} legacy, ${deprecatedCount} deprecated`)
   console.log(`  ${storyFiles.length} story files with correct tags`)
 } else {
   process.exit(1)

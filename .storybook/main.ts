@@ -23,6 +23,7 @@ const config: StorybookConfig = {
     'lifecycle:stress-test': {
       defaultFilterSelection: 'exclude',
     },
+    'lifecycle:legacy': {},
     'lifecycle:deprecated': {
       defaultFilterSelection: 'exclude',
     },

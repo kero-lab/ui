@@ -62,33 +62,36 @@ export const SearchFilter: Story = {
       ],
     },
   },
-  play: async ({ canvasElement }) => {
-    // Wait for initial load
-    await waitFor(() => {
-      const items = canvasElement.querySelectorAll('[data-slot="data-panel-item"]');
-      expect(items.length).toBe(5);
+  play: async ({ canvasElement, step }) => {
+    await step('Wait for initial load', async () => {
+      await waitFor(() => {
+        const items = canvasElement.querySelectorAll('[data-slot="data-panel-item"]');
+        expect(items.length).toBe(5);
+      });
     });
 
-    // Type search term
-    const search = canvasElement.querySelector('[data-slot="data-panel-search"] input')!;
-    await userEvent.clear(search);
-    await userEvent.type(search, 'gateway');
+    await step('Type search term and verify filter', async () => {
+      const search = canvasElement.querySelector('[data-slot="data-panel-search"] input')!;
+      await userEvent.clear(search);
+      await userEvent.type(search, 'gateway');
 
-    // Wait for debounced fetch + filter
-    await waitFor(() => {
-      const items = canvasElement.querySelectorAll('[data-slot="data-panel-item"]');
-      expect(items.length).toBe(1);
-    }, { timeout: 3000 });
+      await waitFor(() => {
+        const items = canvasElement.querySelectorAll('[data-slot="data-panel-item"]');
+        expect(items.length).toBe(1);
+      }, { timeout: 3000 });
 
-    const item = canvasElement.querySelector('[data-slot="data-panel-item"]')!;
-    await expect(item.textContent).toContain('API Gateway');
+      const item = canvasElement.querySelector('[data-slot="data-panel-item"]')!;
+      await expect(item.textContent).toContain('API Gateway');
+    });
 
-    // Clear search → all items return
-    await userEvent.clear(search);
-    await waitFor(() => {
-      const items = canvasElement.querySelectorAll('[data-slot="data-panel-item"]');
-      expect(items.length).toBe(5);
-    }, { timeout: 3000 });
+    await step('Clear search and verify all items return', async () => {
+      const search = canvasElement.querySelector('[data-slot="data-panel-search"] input')!;
+      await userEvent.clear(search);
+      await waitFor(() => {
+        const items = canvasElement.querySelectorAll('[data-slot="data-panel-item"]');
+        expect(items.length).toBe(5);
+      }, { timeout: 3000 });
+    });
   },
 };
 
@@ -109,41 +112,43 @@ export const OptimisticCreate: Story = {
       ],
     },
   },
-  play: async ({ canvasElement }) => {
-    // Wait for initial 3 items
-    await waitFor(() => {
-      const items = canvasElement.querySelectorAll('[data-slot="data-panel-item"]');
-      expect(items.length).toBe(3);
+  play: async ({ canvasElement, step }) => {
+    await step('Wait for initial 3 items', async () => {
+      await waitFor(() => {
+        const items = canvasElement.querySelectorAll('[data-slot="data-panel-item"]');
+        expect(items.length).toBe(3);
+      });
     });
 
-    // Fill create form
-    const nameInput = canvasElement.querySelector('[data-slot="data-panel-create-name"]')! as HTMLInputElement;
-    const categoryInput = canvasElement.querySelector('[data-slot="data-panel-create-category"]')! as HTMLInputElement;
-    const submit = canvasElement.querySelector('[data-slot="data-panel-submit"]')!;
+    await step('Fill create form and submit', async () => {
+      const nameInput = canvasElement.querySelector('[data-slot="data-panel-create-name"]')! as HTMLInputElement;
+      const categoryInput = canvasElement.querySelector('[data-slot="data-panel-create-category"]')! as HTMLInputElement;
+      const submit = canvasElement.querySelector('[data-slot="data-panel-submit"]')!;
 
-    await userEvent.type(nameInput, 'New Service');
-    await userEvent.type(categoryInput, 'Custom');
-    await userEvent.click(submit);
-
-    // Optimistic item appears immediately (4 items now)
-    await waitFor(() => {
-      const items = canvasElement.querySelectorAll('[data-slot="data-panel-item"]');
-      expect(items.length).toBe(4);
+      await userEvent.type(nameInput, 'New Service');
+      await userEvent.type(categoryInput, 'Custom');
+      await userEvent.click(submit);
     });
 
-    // Check optimistic flag
-    const optimistic = canvasElement.querySelector('[data-optimistic="true"]');
-    await expect(optimistic).not.toBeNull();
+    await step('Verify optimistic item appears immediately', async () => {
+      await waitFor(() => {
+        const items = canvasElement.querySelectorAll('[data-slot="data-panel-item"]');
+        expect(items.length).toBe(4);
+      });
 
-    // Wait for POST to resolve — optimistic flag removed
-    await waitFor(() => {
-      const opt = canvasElement.querySelector('[data-optimistic="true"]');
-      expect(opt).toBeNull();
-    }, { timeout: 3000 });
+      const optimistic = canvasElement.querySelector('[data-optimistic="true"]');
+      await expect(optimistic).not.toBeNull();
+    });
 
-    // Item still there (now real)
-    const items = canvasElement.querySelectorAll('[data-slot="data-panel-item"]');
-    await expect(items.length).toBe(4);
+    await step('Wait for POST to resolve — optimistic flag removed', async () => {
+      await waitFor(() => {
+        const opt = canvasElement.querySelector('[data-optimistic="true"]');
+        expect(opt).toBeNull();
+      }, { timeout: 3000 });
+
+      const items = canvasElement.querySelectorAll('[data-slot="data-panel-item"]');
+      await expect(items.length).toBe(4);
+    });
   },
 };
 
@@ -160,31 +165,36 @@ export const OptimisticRevert: Story = {
       ],
     },
   },
-  play: async ({ canvasElement }) => {
-    await waitFor(() => {
-      const items = canvasElement.querySelectorAll('[data-slot="data-panel-item"]');
-      expect(items.length).toBe(3);
+  play: async ({ canvasElement, step }) => {
+    await step('Wait for initial 3 items', async () => {
+      await waitFor(() => {
+        const items = canvasElement.querySelectorAll('[data-slot="data-panel-item"]');
+        expect(items.length).toBe(3);
+      });
     });
 
-    const nameInput = canvasElement.querySelector('[data-slot="data-panel-create-name"]')! as HTMLInputElement;
-    const submit = canvasElement.querySelector('[data-slot="data-panel-submit"]')!;
+    await step('Create item that will fail', async () => {
+      const nameInput = canvasElement.querySelector('[data-slot="data-panel-create-name"]')! as HTMLInputElement;
+      const submit = canvasElement.querySelector('[data-slot="data-panel-submit"]')!;
 
-    await userEvent.type(nameInput, 'Doomed Item');
-    await userEvent.click(submit);
-
-    // Optimistic appears
-    await waitFor(() => {
-      expect(canvasElement.querySelectorAll('[data-slot="data-panel-item"]').length).toBe(4);
+      await userEvent.type(nameInput, 'Doomed Item');
+      await userEvent.click(submit);
     });
 
-    // After POST fails, item reverts
-    await waitFor(() => {
-      expect(canvasElement.querySelectorAll('[data-slot="data-panel-item"]').length).toBe(3);
-    }, { timeout: 3000 });
+    await step('Verify optimistic item appears then reverts on error', async () => {
+      await waitFor(() => {
+        expect(canvasElement.querySelectorAll('[data-slot="data-panel-item"]').length).toBe(4);
+      });
 
-    // Error status shown
-    const submitBtn = canvasElement.querySelector('[data-slot="data-panel-submit"]')!;
-    await expect(submitBtn.getAttribute('data-status')).toBe('error');
+      await waitFor(() => {
+        expect(canvasElement.querySelectorAll('[data-slot="data-panel-item"]').length).toBe(3);
+      }, { timeout: 3000 });
+    });
+
+    await step('Verify error status shown', async () => {
+      const submitBtn = canvasElement.querySelector('[data-slot="data-panel-submit"]')!;
+      await expect(submitBtn.getAttribute('data-status')).toBe('error');
+    });
   },
 };
 
@@ -198,25 +208,29 @@ export const NetworkError: Story = {
       ],
     },
   },
-  play: async ({ canvasElement }) => {
-    await waitFor(() => {
-      expect(canvasElement.querySelectorAll('[data-slot="data-panel-item"]').length).toBe(2);
+  play: async ({ canvasElement, step }) => {
+    await step('Wait for initial 2 items', async () => {
+      await waitFor(() => {
+        expect(canvasElement.querySelectorAll('[data-slot="data-panel-item"]').length).toBe(2);
+      });
     });
 
-    const nameInput = canvasElement.querySelector('[data-slot="data-panel-create-name"]')! as HTMLInputElement;
-    const submit = canvasElement.querySelector('[data-slot="data-panel-submit"]')!;
+    await step('Submit item that triggers network error', async () => {
+      const nameInput = canvasElement.querySelector('[data-slot="data-panel-create-name"]')! as HTMLInputElement;
+      const submit = canvasElement.querySelector('[data-slot="data-panel-submit"]')!;
 
-    await userEvent.type(nameInput, 'Network Fail');
-    await userEvent.click(submit);
+      await userEvent.type(nameInput, 'Network Fail');
+      await userEvent.click(submit);
+    });
 
-    // Item appears optimistically, then reverts
-    await waitFor(() => {
-      expect(canvasElement.querySelectorAll('[data-slot="data-panel-item"]').length).toBe(2);
-    }, { timeout: 3000 });
+    await step('Verify optimistic item reverts after network error', async () => {
+      await waitFor(() => {
+        expect(canvasElement.querySelectorAll('[data-slot="data-panel-item"]').length).toBe(2);
+      }, { timeout: 3000 });
 
-    // Error feedback
-    const errorMsg = canvasElement.querySelector('[data-slot="data-panel-error"]');
-    await expect(errorMsg).not.toBeNull();
+      const errorMsg = canvasElement.querySelector('[data-slot="data-panel-error"]');
+      await expect(errorMsg).not.toBeNull();
+    });
   },
 };
 
@@ -236,21 +250,22 @@ export const SequentialResponses: Story = {
       })(),
     },
   },
-  play: async ({ canvasElement }) => {
-    // First load returns empty
-    await waitFor(() => {
-      const status = canvasElement.querySelector('[data-slot="data-panel-status"]')!;
-      expect(status.textContent).toBe('0 items');
+  play: async ({ canvasElement, step }) => {
+    await step('Verify first load returns empty', async () => {
+      await waitFor(() => {
+        const status = canvasElement.querySelector('[data-slot="data-panel-status"]')!;
+        expect(status.textContent).toBe('0 items');
+      });
     });
 
-    // Click Refresh
-    const refresh = canvasElement.querySelector('[data-slot="data-panel-refresh"]')!;
-    await userEvent.click(refresh);
+    await step('Click refresh and verify full data loads', async () => {
+      const refresh = canvasElement.querySelector('[data-slot="data-panel-refresh"]')!;
+      await userEvent.click(refresh);
 
-    // Second load returns full data
-    await waitFor(() => {
-      expect(canvasElement.querySelectorAll('[data-slot="data-panel-item"]').length).toBe(5);
-    }, { timeout: 3000 });
+      await waitFor(() => {
+        expect(canvasElement.querySelectorAll('[data-slot="data-panel-item"]').length).toBe(5);
+      }, { timeout: 3000 });
+    });
   },
 };
 
