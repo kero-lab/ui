@@ -30,6 +30,24 @@ export { Sparkline, SparklineGrid, computeSparklinePoints, pointsToPolyline, poi
 export { ExpandableRow, ExpandableRowTrigger, ExpandableRowContent, useExpandableRow } from './components/expandable-row';
 export { ResponsiveCard } from './components/responsive-card';
 
+// Event components (Activity River Phase 3)
+export { EventCard, EventCardSummary, EventCardDetail, EventCardAction, useEventCard } from './components/event-card';
+export type { EventCardProps, Significance } from './components/event-card';
+export { EventTimeline, classifyPeriods, computePeakDensity, formatTimelineDuration } from './components/event-timeline';
+export type { TimelineItem, Period, NormalPeriod, QuietPeriod, BusyPeriod, PeriodType, QuietMarkerProps, BusyHeaderProps, ClusterSummaryRenderProps, TrendRenderProps, EventTimelineProps } from './components/event-timeline';
+
+// River Intelligence (Activity River Phase 4)
+export { FanOutStack } from './components/fan-out-stack';
+export type { FanOutStackProps } from './components/fan-out-stack';
+export { ClusterSummary, formatClusterDuration } from './components/cluster-summary';
+export type { ClusterSummaryProps } from './components/cluster-summary';
+export { TrendIndicator, MiniSparkline } from './components/trend-indicator';
+export type { TrendIndicatorProps, TrendDirection, TrendSeverity } from './components/trend-indicator';
+
+// River hooks
+export { useScrollBob } from './hooks/use-scroll-bob';
+export { useTimelineKeyboard } from './hooks/use-timeline-keyboard';
+
 // Stress-test components
 export { StepWizard, StepWizardIndicator, StepWizardContent, StepWizardActions, useStepWizard, wizardReducer, createInitialWizardState, stepIndicatorVariants } from './components/step-wizard';
 export type { WizardStep, WizardState, WizardAction, WizardStatus, StepStatus } from './components/step-wizard';

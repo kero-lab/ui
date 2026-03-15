@@ -150,6 +150,40 @@ export const COMPONENT_LIFECYCLE: Record<string, LifecycleEntry> = {
     note: 'Side-by-side comparison of all voice wave variants.',
   },
 
+  // Activity River Phase 3 — interactive event cards + timeline intelligence
+  EventCard: {
+    stage: 'prototype',
+    since: '2026-03-13',
+    promotedBy: 'initial',
+    note: 'Hover-to-expand compound component for Activity River. Built in #564 phase 3.',
+  },
+  EventTimeline: {
+    stage: 'prototype',
+    since: '2026-03-13',
+    promotedBy: 'initial',
+    note: 'Smart horizontal timeline with quiet/busy period detection. Built in #564 phase 3.',
+  },
+
+  // Activity River Phase 4 — river intelligence primitives
+  FanOutStack: {
+    stage: 'prototype',
+    since: '2026-03-14',
+    promotedBy: 'initial',
+    note: 'Session grouping primitive — stacked deck fans out on click. Built in #564 phase 4.',
+  },
+  ClusterSummary: {
+    stage: 'prototype',
+    since: '2026-03-14',
+    promotedBy: 'initial',
+    note: 'Busy period aggregate card with collapsible event list. Built in #564 phase 4.',
+  },
+  TrendIndicator: {
+    stage: 'prototype',
+    since: '2026-03-14',
+    promotedBy: 'initial',
+    note: 'Inter-period directional signal with optional sparkline. Built in #564 phase 4.',
+  },
+
   // Everything else (Button, Card, Badge, etc.) defaults to 'stable'
 }
 

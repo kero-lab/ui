@@ -41,6 +41,9 @@ import {
   StepWizardActions,
 } from './step-wizard';
 import { DataPanel } from './data-panel';
+import { EventCard, EventCardSummary, EventCardDetail } from './event-card';
+import { EventTimeline } from './event-timeline';
+import type { TimelineItem } from './event-timeline';
 faker.seed(42);
 
 const meta = {
@@ -309,6 +312,60 @@ export const AllComponents: Story = {
           <div className="max-w-md">
             <DataPanel apiBase="/api/showcase" searchDebounceMs={150} />
           </div>
+        </Section>
+
+        <Separator className="my-2" />
+
+        {/* --- EventCard --- */}
+        <Section title="EventCard (Prototype — Activity River Phase 3)">
+          <div className="flex gap-3 flex-wrap">
+            {[
+              { name: 'Anthropic', color: '#D97757', model: 'claude-haiku-4.5', sig: 'high' as const },
+              { name: 'OpenAI', color: '#10A37F', model: 'gpt-4o', sig: 'medium' as const },
+              { name: 'Ollama', color: '#888888', model: 'andy-4', sig: 'low' as const },
+            ].map((p) => (
+              <EventCard key={p.name} accentColor={p.color} significance={p.sig}>
+                <EventCardSummary>
+                  <div className="text-xs font-medium text-white/80">{p.name}</div>
+                  <div className="mt-1 text-xs text-white/50">{p.model}</div>
+                </EventCardSummary>
+                <EventCardDetail>
+                  <div className="text-xs text-white/60">Token details, cost, tools...</div>
+                </EventCardDetail>
+              </EventCard>
+            ))}
+          </div>
+        </Section>
+
+        <Separator className="my-2" />
+
+        {/* --- EventTimeline --- */}
+        <Section title="EventTimeline (Prototype — Activity River Phase 3)">
+          {(() => {
+            const base = Date.now();
+            const HOUR = 60 * 60 * 1000;
+            const MIN = 60 * 1000;
+            const items: (TimelineItem & { id: string; label: string; color: string })[] = [
+              { id: '1', timestamp: base, label: 'Chat', color: '#D97757' },
+              { id: '2', timestamp: base + 15 * MIN, label: 'Eval', color: '#22c55e' },
+              { id: '3', timestamp: base + 30 * MIN, label: 'Chat', color: '#10A37F' },
+              { id: '4', timestamp: base + 4 * HOUR, label: 'Chat', color: '#D97757' },
+              { id: '5', timestamp: base + 4 * HOUR + 10 * MIN, label: 'Eval', color: '#22c55e' },
+            ];
+            return (
+              <EventTimeline
+                items={items}
+                renderItem={(item) => (
+                  <EventCard accentColor={item.color} significance="medium">
+                    <EventCardSummary>
+                      <div className="text-xs font-medium text-white/80">{item.label}</div>
+                      <div className="text-[10px] text-white/40">{new Date(item.timestamp).toLocaleTimeString()}</div>
+                    </EventCardSummary>
+                  </EventCard>
+                )}
+              />
+            );
+          })()}
         </Section>
       </div>
     );
