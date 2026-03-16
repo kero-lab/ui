@@ -260,7 +260,7 @@ function StepWizardIndicator({
           {i > 0 && (
             <div
               data-slot="step-wizard-connector"
-              data-filled={i <= state.currentIndex ? "true" : "false"}
+              data-filled={i - 1 <= state.currentIndex ? "true" : "false"}
               className={cn(
                 "h-0.5 w-8 transition-colors",
                 i <= state.currentIndex ? "bg-primary" : "bg-muted-foreground/30"
