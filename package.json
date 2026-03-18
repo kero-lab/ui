@@ -1,7 +1,7 @@
 {
-  "name": "@remlab/ui",
-  "version": "0.0.0",
-  "private": true,
+  "name": "@kero-lab/ui",
+  "version": "0.1.0",
+  "description": "Shared React component library — Radix UI, Tailwind, hooks, admin toolbar",
   "scripts": {
     "storybook": "node node_modules/.bin/storybook dev -p 6006",
     "build-storybook": "node node_modules/.bin/storybook build",
@@ -21,6 +21,13 @@
     "./icons/rem-icon": "./src/icons/rem-icon.tsx",
     "./hooks/*": "./src/hooks/*.ts",
     "./admin-toolbar": "./src/components/admin-toolbar/index.ts"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kero-lab/ui.git"
   },
   "peerDependencies": {
     "react": "^19.0.0",
